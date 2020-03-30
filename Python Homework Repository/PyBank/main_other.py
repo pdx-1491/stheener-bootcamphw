@@ -15,22 +15,25 @@ current_value = 867884
 # keeps track of running total when comparing each value to each other in 'profi/losses'
 total_net_change = 0
 
-# keeps track of the 'profit/losses' difference between iterations in for loop
+# net_change
 net_change = 0
 
 # keeps track of single value when comparing profits to each other in 'profit/losses'
-profit_change = 867884
+profit_change = 0
 
-# the largest increase in profit and the associated month
-greatest_profit = 0
-greatest_increase_date = ' '
+# the largest increase in profit month over month
+greatest_increase = 867884
+greatest_increase_date = " "
+
+#starting_value = int(row[1])
+#next_value = int(row[1]) + 1
+#running_value = 0
 
 # keeps track of single value when comparing losses to each other in 'profit/losses'
-loss_change = 867884
+loss_change = 0
 
-# the largest decrease in profit and the associated month
-greatest_loss = 0
-greatest_decrease_date = ' '
+# the largest decrease in profit month over month
+loss_largest = 0
 
 with open(csvpath) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
@@ -49,16 +52,28 @@ with open(csvpath) as csvfile:
         current_value = int(row[1])
 
         # bullet 4 - greatest increase in profits with month
-        profit_change = net_change
-        if profit_change > greatest_profit:
-            greatest_profit = profit_change
-            greatest_increase_date = str(row[0])
+        print("net change = " + str(net_change))
+        print("greatest increase = " + str(greatest_increase))
 
-        # bullet 5 - greatest loss in profits with month
-        loss_change = net_change
-        if loss_change < greatest_loss:
-            greatest_loss = loss_change
-            greatest_decrease_date = str(row[0])
+        if net_change > greatest_increase:
+            greatest_increase = int(row[1])
+            greatest_increse_date = str(row[0])
+
+            print("\ngreatest increase = " + str(greatest_increase))
+            print("greatest increase date = " + str(greatest_increase_date))
+
+        # bullet 5 - greatest decrease in profits with month
+        # net_change = int(row[1]) - current_value
+
+print(greatest_increase)
+print(greatest_increse_date)
+
+'''
+def is_profitable(x, y):
+    profit = y - x
+    if (profit > 0):
+        return profit
+'''
 
 print('Financial Analysis')
 print('------------------------')
@@ -66,7 +81,5 @@ print('Total Months: ' + str(month_count))
 print("Total: " + '$' + str(net_total))
 print("Average Change: " + '$' +
       str(round(total_net_change / (month_count - 1), 2)))
-print("Greatest Increase in Profits: "
-      + greatest_increase_date + ' ' + '(' + '$' + str(greatest_profit) + ')')
-print("Greatest Increase in Profits: "
-      + greatest_decrease_date + ' ' + '(' + '$' + str(greatest_loss) + ')')
+# print("Greatest Increase in Profits: " + '$' + month_variable + amount_variable)
+# print("Greatest Decrease in Profits: " + '$' + month_variable + amount_variable)
