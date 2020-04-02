@@ -31,9 +31,8 @@ with open(csvpath) as csvfile:
         else:
             candidate_votes[row[2]] += 1
 
+# bullet 4 - total number of votes each candidate won
 for name in candidate_votes:
-
-    # bullet 4 - total number of votes each candidate won
     calculate_percentage = round(candidate_votes[name]/len(votes)*100, 3)
     candidate_percentages[name] = calculate_percentage
 
@@ -55,3 +54,23 @@ print(candidates[3] + ':' + ' ' + str(candidate_percentages["O'Tooley"])
 print('-----------------------')
 print('Winner: ' + str(most_votes))
 print('-----------------------')
+
+# printing a csv
+output_path = os.path.join('Analysis', 'results.csv')
+with open(output_path, 'w') as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(['Election Results'])
+    csvwriter.writerow(['-----------------------'])
+    csvwriter.writerow(['Total votes: ' + str(len(votes))])
+    csvwriter.writerow(['-----------------------'])
+    csvwriter.writerow([candidates[0] + ':' + ' ' + str(candidate_percentages['Khan'])
+                        + ' ' + '(' + str(candidate_votes['Khan']) + ')'])
+    csvwriter.writerow([candidates[1] + ':' + ' ' + str(candidate_percentages['Correy'])
+                        + ' ' + '(' + str(candidate_votes['Correy']) + ')'])
+    csvwriter.writerow([candidates[2] + ':' + ' ' + str(candidate_percentages['Li'])
+                        + ' ' + '(' + str(candidate_votes['Li']) + ')'])
+    csvwriter.writerow([candidates[3] + ':' + ' ' + str(candidate_percentages["O'Tooley"])
+                        + ' ' + '(' + str(candidate_votes["O'Tooley"]) + ')'])
+    csvwriter.writerow(['-----------------------'])
+    csvwriter.writerow(['Winner: ' + str(most_votes)])
+    csvwriter.writerow(['-----------------------'])

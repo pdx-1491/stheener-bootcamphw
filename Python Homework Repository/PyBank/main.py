@@ -70,3 +70,18 @@ print("Greatest Increase in Profits: "
       + greatest_increase_date + ' ' + '(' + '$' + str(greatest_profit) + ')')
 print("Greatest Increase in Profits: "
       + greatest_decrease_date + ' ' + '(' + '$' + str(greatest_loss) + ')')
+
+# printing a csv
+output_path = os.path.join('Analysis', 'results.csv')
+with open(output_path, 'w') as csvfile:
+    csvwriter = csv.writer(csvfile, delimiter=',')
+    csvwriter.writerow(['Financial Analysis'])
+    csvwriter.writerow(['-----------------------'])
+    csvwriter.writerow(['Total Months: ' + str(month_count)])
+    csvwriter.writerow(["Total: " + '$' + str(net_total)])
+    csvwriter.writerow(["Average Change: " + '$' +
+                        str(round(total_net_change / (month_count - 1), 2))])
+    csvwriter.writerow(["Greatest Increase in Profits: "
+                        + greatest_increase_date + ' ' + '(' + '$' + str(greatest_profit) + ')'])
+    csvwriter.writerow(["Greatest Increase in Profits: "
+                        + greatest_decrease_date + ' ' + '(' + '$' + str(greatest_loss) + ')'])
